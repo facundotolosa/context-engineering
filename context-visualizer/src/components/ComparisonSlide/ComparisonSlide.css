@@ -1,0 +1,342 @@
+.comparison-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 48px;
+  flex: 1;
+  overflow-y: auto;
+  gap: 40px;
+  min-height: 0;
+}
+
+/* Cards Container */
+.comparison-cards {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 1000px;
+}
+
+/* Individual Card */
+.comparison-card {
+  flex: 1;
+  max-width: 420px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition: border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.comparison-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+/* Card Header - Always visible */
+.card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Card Content - Hidden by default, expands */
+.card-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1) 0.1s,
+    margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  margin-top: 0;
+}
+
+.card-content > * {
+  overflow: hidden;
+}
+
+.card-content-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 0;
+}
+
+.comparison-card.expanded .card-content {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-top: 20px;
+}
+
+/* Prompt Card */
+.prompt-card {
+  border-color: rgba(245, 158, 11, 0.3);
+}
+
+.prompt-card.expanded {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+}
+
+.prompt-card .card-icon {
+  color: #f59e0b;
+}
+
+.prompt-card .card-title {
+  color: #fbbf24;
+}
+
+/* Context Card */
+.context-card {
+  border-color: rgba(99, 102, 241, 0.3);
+}
+
+.context-card.expanded {
+  border-color: rgba(99, 102, 241, 0.5);
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.1);
+}
+
+.context-card .card-icon {
+  color: var(--accent-primary);
+}
+
+.context-card .card-title {
+  color: var(--accent-hover);
+}
+
+/* Card Icon */
+.card-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface-elevated);
+  border-radius: 12px;
+}
+
+/* Card Title */
+.card-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+/* Card Focus */
+.card-focus {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+}
+
+.card-focus strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Card Points */
+.card-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.card-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.point-icon {
+  font-size: 1rem;
+  flex-shrink: 0;
+  color: var(--text-tertiary);
+}
+
+/* Card Example */
+.card-example {
+  padding: 12px 16px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.card-example code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  word-break: break-word;
+}
+
+/* Plus Divider */
+.plus-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  padding-top: 40px;
+}
+
+.plus-text {
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--text-tertiary);
+}
+
+/* Takeaway Section */
+.takeaway-section {
+  text-align: center;
+  max-width: 1200px;
+  /* Hidden by default */
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+.takeaway-section.top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  height: auto;
+  animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.takeaway-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.quote-mark {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.takeaway-explanation {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Step Navigation */
+.step-navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.step-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.step-btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.step-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.step-indicators {
+  display: flex;
+  gap: 10px;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.step-dot:hover {
+  background: var(--text-tertiary);
+  transform: scale(1.2);
+}
+
+.step-dot.active {
+  background: var(--accent-primary);
+  transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .comparison-cards {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plus-divider {
+    padding: 8px 0;
+  }
+
+  .comparison-card {
+    max-width: 100%;
+  }
+}

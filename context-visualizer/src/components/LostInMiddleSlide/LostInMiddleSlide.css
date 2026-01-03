@@ -1,0 +1,436 @@
+.lost-in-middle-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 24px 48px 32px;
+  flex: 1;
+  overflow-y: auto;
+  gap: 24px;
+  min-height: 0;
+}
+
+/* Title Section */
+.slide-title-section {
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.slide-main-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+
+.slide-subtitle {
+  font-size: 1rem;
+  color: var(--text-tertiary);
+}
+
+/* Main Content */
+.lost-in-middle-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  max-width: 700px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Conversation Container */
+.conversation-container {
+  width: 100%;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.conversation-container:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.conversation-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: var(--surface-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.conversation-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.conversation-title svg {
+  color: var(--accent-primary);
+}
+
+/* Messages Wrapper */
+.messages-wrapper {
+  position: relative;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* Message Row - contains message and optional label */
+.message-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.message-row .message {
+  flex: 1;
+}
+
+/* Attention Labels - inline with messages */
+.attention-label {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  animation: fadeIn 0.4s ease;
+}
+
+.attention-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 4px 10px;
+  border-radius: 4px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.attention-label.primacy .attention-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.attention-label.recency .attention-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Messages List */
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+}
+
+/* Message */
+.message {
+  display: flex;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  /* Smooth transitions for blur/opacity changes */
+  transition: 
+    opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Message enter animation - uses wrapper for smooth height */
+.message-enter-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  animation: messageExpand 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.message-enter-wrapper > * {
+  overflow: hidden;
+}
+
+.message-enter-wrapper.entered {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+@keyframes messageExpand {
+  0% {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  50% {
+    grid-template-rows: 1fr;
+    opacity: 0.5;
+  }
+  100% {
+    grid-template-rows: 1fr;
+    opacity: 1;
+  }
+}
+
+.message.user {
+  background: var(--surface-elevated);
+}
+
+.message.assistant {
+  background: rgba(99, 102, 241, 0.08);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+}
+
+.message.lost {
+  /* Visual indicator that this message is "lost" */
+}
+
+.message-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.message.user .message-avatar {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+.message.assistant .message-avatar {
+  background: var(--accent-primary);
+  color: white;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.message-role {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.message.user .message-role {
+  color: var(--text-tertiary);
+}
+
+.message.assistant .message-role {
+  color: var(--accent-hover);
+}
+
+.message-text {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Attention Indicator */
+.attention-indicator {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.4s ease;
+}
+
+.attention-bar {
+  display: flex;
+  gap: 4px;
+  width: 100%;
+  max-width: 400px;
+  height: 24px;
+}
+
+.attention-segment {
+  flex: 1;
+  border-radius: 4px;
+  transition: 
+    opacity 0.4s ease,
+    background-color 0.4s ease;
+}
+
+.attention-legend {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  font-size: 0.7rem;
+  color: var(--text-tertiary);
+}
+
+.legend-middle {
+  color: var(--text-tertiary);
+  opacity: 0.7;
+}
+
+/* Takeaway Section - at the top */
+.lost-in-middle-slide .takeaway-section {
+  text-align: center;
+  max-width: 650px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+.lost-in-middle-slide .takeaway-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  height: auto;
+  margin-bottom: 16px;
+  animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.lost-in-middle-slide .takeaway-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.lost-in-middle-slide .quote-mark {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.lost-in-middle-slide .quote-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.lost-in-middle-slide .takeaway-explanation {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Step Navigation - Same as ComparisonSlide */
+.lost-in-middle-slide .step-navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.lost-in-middle-slide .step-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.lost-in-middle-slide .step-btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.lost-in-middle-slide .step-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.lost-in-middle-slide .step-indicators {
+  display: flex;
+  gap: 10px;
+}
+
+.lost-in-middle-slide .step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.lost-in-middle-slide .step-dot:hover {
+  background: var(--text-tertiary);
+  transform: scale(1.2);
+}
+
+.lost-in-middle-slide .step-dot.active {
+  background: var(--accent-primary);
+  transform: scale(1.2);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .lost-in-middle-slide {
+    padding: 16px 24px 24px;
+  }
+  
+  .attention-label {
+    display: none;
+  }
+}
+

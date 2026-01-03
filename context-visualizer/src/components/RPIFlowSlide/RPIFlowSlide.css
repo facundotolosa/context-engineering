@@ -1,0 +1,366 @@
+.rpi-flow-slide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 48px;
+  flex: 1;
+  overflow-y: auto;
+  gap: 32px;
+  min-height: 0;
+}
+
+/* RPI Diagram */
+.rpi-diagram {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 50px;
+  width: 100%;
+}
+
+/* Individual Row */
+.rpi-row {
+  display: grid;
+  grid-template-columns: 120px 50px 160px 50px 120px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  padding-bottom: 55px;
+}
+
+.rpi-row.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Phase Circle (was Diamond) */
+.phase-diamond {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.phase-diamond::before {
+  content: '';
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.phase-diamond:hover::before {
+  border-color: var(--border-hover);
+  box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
+}
+
+.diamond-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  text-align: center;
+}
+
+.phase-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Connector Arrow */
+.connector-arrow {
+  width: 50px;
+  height: 24px;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  justify-self: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.connector-arrow.visible {
+  opacity: 1;
+}
+
+.connector-arrow path {
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  transition: stroke-dashoffset 0.5s ease;
+}
+
+.connector-arrow.visible path {
+  stroke-dashoffset: 0;
+}
+
+/* Artifact Box - Using app's card style */
+.artifact-box {
+  padding: 18px 20px;
+  background: var(--surface-base);
+  border: 1px solid rgba(34, 197, 94, 0.4);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 70px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.artifact-box.visible {
+  opacity: 1;
+  transform: scale(1);
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.15);
+}
+
+.artifact-title {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #4ade80;
+  font-style: italic;
+  line-height: 1.3;
+  text-align: center;
+}
+
+/* Review Diamond - Using app's card style */
+.review-diamond {
+  width: 120px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.review-diamond.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.review-diamond::before {
+  content: '';
+  position: absolute;
+  width: 85px;
+  height: 85px;
+  background: var(--surface-base);
+  border: 1px solid rgba(251, 191, 36, 0.4);
+  transform: rotate(45deg);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-diamond.visible::before {
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 0 25px rgba(251, 191, 36, 0.2);
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  text-align: center;
+}
+
+.review-title {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #fbbf24;
+  line-height: 1.3;
+}
+
+/* Revision Loop - from Human Review to Artifact */
+.revision-loop {
+  position: absolute;
+  top: calc(100% - 65px);
+  /* Centered between artifact (col 3) and human review (col 5) */
+  /* Col 3 center: 120 + 8 + 50 + 8 + 80 = 266px */
+  /* Col 5 center: 266 + 80 + 8 + 50 + 8 + 60 = 472px */
+  left: 266px;
+  width: 206px;
+  height: 65px;
+  color: var(--text-tertiary);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  overflow: visible;
+}
+
+.revision-loop.visible {
+  opacity: 0.8;
+}
+
+.revision-loop path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 0.8s ease;
+}
+
+.revision-loop.visible path {
+  stroke-dashoffset: 0;
+}
+
+.revision-label {
+  font-size: 13px;
+  font-weight: 600;
+  font-style: italic;
+  fill: var(--text-secondary);
+  text-anchor: middle;
+}
+
+/* Takeaway Section */
+.takeaway-section {
+  text-align: center;
+  max-width: 1200px;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+.takeaway-section.top.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+  height: auto;
+  animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.takeaway-quote {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.quote-mark {
+  font-size: 2rem;
+  color: var(--accent-primary);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.quote-text {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-style: italic;
+}
+
+.takeaway-explanation {
+  font-size: 0.95rem;
+  color: var(--text-tertiary);
+  line-height: 1.5;
+}
+
+/* Step Navigation */
+.step-navigation {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.step-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: var(--surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.step-btn:hover:not(:disabled) {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+  border-color: var(--border-hover);
+}
+
+.step-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.step-indicators {
+  display: flex;
+  gap: 10px;
+}
+
+.step-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border-subtle);
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.step-dot:hover {
+  background: var(--text-tertiary);
+  transform: scale(1.2);
+}
+
+.step-dot.active {
+  background: var(--accent-primary);
+  transform: scale(1.2);
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .rpi-row {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    justify-items: center;
+    gap: 16px;
+    padding-bottom: 60px;
+  }
+  
+  .connector-arrow {
+    transform: rotate(90deg);
+    width: 40px;
+  }
+  
+  .revision-loop {
+    width: 80%;
+  }
+}
