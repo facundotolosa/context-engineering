@@ -111,16 +111,6 @@ export const ELEMENT_TYPES = {
     description: "Response from MCP tool execution",
     category: "mcp",
   },
-
-  // === CONTEXT ===
-  CODEBASE_CONTEXT: {
-    id: "codebase-context",
-    name: "Codebase Context",
-    tokens: 2000,
-    color: "#8b5cf6", // Violet
-    description: "Project structure and file summaries",
-    category: "context",
-  },
 };
 
 // Get all elements as an array for rendering

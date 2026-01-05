@@ -238,9 +238,6 @@ export function LostInMiddleSlide() {
                 const isEntered = enteredMessages.has(index);
                 const isNew =
                   index === visibleMessages.length - 1 && !isEntered;
-                const showLabels = step >= 13;
-                const isPrimacyZone = index < 2;
-                const isRecencyZone = index >= visibleMessages.length - 2;
 
                 return (
                   <div
@@ -294,17 +291,6 @@ export function LostInMiddleSlide() {
                           <p className="message-text">{msg.content}</p>
                         </div>
                       </div>
-                      {showLabels && (isPrimacyZone || isRecencyZone) && (
-                        <div
-                          className={`attention-label ${
-                            isPrimacyZone ? "primacy" : "recency"
-                          }`}
-                        >
-                          <span className="attention-badge">
-                            {isPrimacyZone ? "PRIMACY" : "RECENCY"}
-                          </span>
-                        </div>
-                      )}
                     </div>
                   </div>
                 );

@@ -37,103 +37,364 @@ export function ErrorCascadeSlide() {
           <span className="quote-mark">"</span>
         </div>
         <p className="takeaway-explanation">
-          A bad <strong>research</strong> destroys the entire flow.
+          An error while <strong>researching</strong> destroys the entire flow.
+          <br />A mistake in <strong>planning</strong> ruins the implementation.
           <br />
-          A bad <strong>plan</strong> ruins the implementation.
-          <br />
-          A bad <strong>code</strong> is just one line.
+          Something wrong while <strong>implementing</strong> can be easily
+          fixed.
         </p>
       </div>
 
       {/* Error Cascade Diagram */}
-      <div className="cascade-container">
+      <div className="cascade-diagram">
         {/* Column Headers */}
         <div className="cascade-headers">
-          <div className={`cascade-header ${step >= 0 ? "visible" : ""}`}>
+          <div className="cascade-header visible">
             <span className="header-text">Research</span>
           </div>
-          <div className={`cascade-header ${step >= 0 ? "visible" : ""}`}>
+          <div className="header-spacer" />
+          <div className="cascade-header visible">
             <span className="header-text">Plan</span>
           </div>
-          <div className={`cascade-header ${step >= 0 ? "visible" : ""}`}>
-            <span className="header-text">Code</span>
+          <div className="header-spacer" />
+          <div className="cascade-header visible">
+            <span className="header-text">Implement</span>
           </div>
         </div>
 
-        {/* Cascade Columns */}
-        <div className="cascade-columns">
+        {/* Main Diagram Area */}
+        <div className="cascade-content">
           {/* Research Column */}
-          <div className={`cascade-column research-col ${step >= 0 ? "visible" : ""}`}>
-            <div className={`cascade-item bad ${step >= 4 ? "visible" : ""}`}>
-              <span>bad research</span>
-            </div>
-            <div className={`cascade-item good ${step >= 1 ? "visible" : ""}`}>
-              <span>good research</span>
-            </div>
+          <div className="cascade-column">
+            {/* Steps 1-5: good research (30% height) */}
+            {step >= 1 && step <= 5 && (
+              <div className="cascade-item good size-30 visible">
+                <span>good research</span>
+              </div>
+            )}
+
+            {/* Step 6: Split research into good/bad/good */}
+            {step >= 6 && (
+              <>
+                <div className="cascade-item good size-12 visible">
+                  <span>good research</span>
+                </div>
+                <div className="cascade-item bad size-5 visible">
+                  <span>bad research</span>
+                </div>
+                <div className="cascade-item good size-12 visible">
+                  <span>good research</span>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Connections: Research to Plan */}
-          <svg className="cascade-connections" viewBox="0 0 100 400">
-            {/* Good research -> Good plan */}
-            <path 
-              className={`connection-line good-line ${step >= 2 ? "visible" : ""}`}
-              d="M0 280 Q50 280 100 80"
-            />
-            {/* Bad research -> Bad plan 1 */}
-            <path 
-              className={`connection-line bad-line ${step >= 5 ? "visible" : ""}`}
-              d="M0 80 Q50 80 100 160"
-            />
-            {/* Bad research -> Bad plan 2 */}
-            <path 
-              className={`connection-line bad-line ${step >= 5 ? "visible" : ""}`}
-              d="M0 80 Q50 120 100 300"
-            />
-          </svg>
+          {/* Connection Area 1 (Research -> Plan) */}
+          <div className="cascade-connector">
+            <svg
+              className="connector-svg"
+              viewBox="-80 0 240 100"
+              preserveAspectRatio="none"
+            >
+              {/* Steps 2-5: single good research -> good plan */}
+              {step >= 2 && step <= 5 && (
+                <>
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="15"
+                    x2="80"
+                    y2="5"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="15"
+                    x2="80"
+                    y2="58"
+                  />
+                </>
+              )}
+
+              {/* Step 6: split research -> split plan (6 lines) */}
+              {step >= 6 && (
+                <>
+                  {/* good research top (center ~6) -> good plan top (2-16) */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="6"
+                    x2="80"
+                    y2="3"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="6"
+                    x2="80"
+                    y2="16"
+                  />
+
+                  {/* bad research (center ~17) -> bad plan (23-38) */}
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="17"
+                    x2="80"
+                    y2="23"
+                  />
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="17"
+                    x2="80"
+                    y2="38"
+                  />
+
+                  {/* good research bottom (center ~29) -> good plan bottom (42-55) */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="29"
+                    x2="80"
+                    y2="42"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="29"
+                    x2="80"
+                    y2="55"
+                  />
+                </>
+              )}
+            </svg>
+          </div>
 
           {/* Plan Column */}
-          <div className={`cascade-column plan-col ${step >= 0 ? "visible" : ""}`}>
-            <div className={`cascade-item good ${step >= 2 ? "visible" : ""}`}>
-              <span>good plan</span>
-            </div>
-            <div className={`cascade-item bad ${step >= 5 ? "visible" : ""}`}>
-              <span>bad plan</span>
-            </div>
-            <div className={`cascade-item bad large ${step >= 5 ? "visible" : ""}`}>
-              <span>bad plan</span>
-            </div>
+          <div className="cascade-column">
+            {/* Steps 2-4: good plan (60% height) */}
+            {step >= 2 && step <= 4 && (
+              <div className="cascade-item good size-60 visible">
+                <span>good plan</span>
+              </div>
+            )}
+
+            {/* Step 5: Split plan into good/bad/good (small bad) */}
+            {step === 5 && (
+              <>
+                <div className="cascade-item good size-27 visible">
+                  <span>good plan</span>
+                </div>
+                <div className="cascade-item bad size-5 visible">
+                  <span>bad plan</span>
+                </div>
+                <div className="cascade-item good size-27 visible">
+                  <span>good plan</span>
+                </div>
+              </>
+            )}
+
+            {/* Step 6: Split plan with BIGGER bad plan (cascade from bad research) */}
+            {step >= 6 && (
+              <>
+                <div className="cascade-item good size-18 visible">
+                  <span>good plan</span>
+                </div>
+                <div className="cascade-item bad size-19 visible">
+                  <span>bad plan</span>
+                </div>
+                <div className="cascade-item good size-18 visible">
+                  <span>good plan</span>
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Connections: Plan to Code */}
-          <svg className="cascade-connections" viewBox="0 0 100 400">
-            {/* Good plan -> Good code */}
-            <path 
-              className={`connection-line good-line ${step >= 3 ? "visible" : ""}`}
-              d="M0 80 Q50 80 100 80"
-            />
-            {/* Bad plan 1 -> Bad code */}
-            <path 
-              className={`connection-line bad-line ${step >= 6 ? "visible" : ""}`}
-              d="M0 160 Q50 180 100 220"
-            />
-            {/* Bad plan 2 -> Bad code */}
-            <path 
-              className={`connection-line bad-line ${step >= 6 ? "visible" : ""}`}
-              d="M0 300 Q50 280 100 260"
-            />
-          </svg>
+          {/* Connection Area 2 (Plan -> Implement) */}
+          <div className="cascade-connector">
+            <svg
+              className="connector-svg"
+              viewBox="-80 0 240 100"
+              preserveAspectRatio="none"
+            >
+              {/* Steps 3-4: single good plan -> good code */}
+              {step >= 3 && step <= 4 && (
+                <>
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="30"
+                    x2="80"
+                    y2="5"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="30"
+                    x2="80"
+                    y2="92"
+                  />
+                </>
+              )}
 
-          {/* Code Column */}
-          <div className={`cascade-column code-col ${step >= 0 ? "visible" : ""}`}>
-            <div className={`cascade-item good ${step >= 3 ? "visible" : ""}`}>
-              <span>good code</span>
-            </div>
-            <div className={`cascade-item bad extra-large ${step >= 6 ? "visible" : ""}`}>
-              <span>bad code</span>
-            </div>
-            <div className={`cascade-item good small ${step >= 3 ? "visible" : ""}`}>
-              <span>good code</span>
-            </div>
+              {/* Step 5: split plan -> split code (6 lines) */}
+              {step === 5 && (
+                <>
+                  {/* good plan top -> good code top */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="14"
+                    x2="80"
+                    y2="5"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="14"
+                    x2="80"
+                    y2="23"
+                  />
+                  {/* bad plan -> bad code */}
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="32"
+                    x2="80"
+                    y2="30"
+                  />
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="32"
+                    x2="80"
+                    y2="46"
+                  />
+                  {/* good plan bottom -> good code bottom */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="50"
+                    x2="80"
+                    y2="50"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="50"
+                    x2="80"
+                    y2="70"
+                  />
+                </>
+              )}
+
+              {/* Step 6: bigger bad plan -> even bigger bad code (6 lines) */}
+              {step >= 6 && (
+                <>
+                  {/* good plan top (center ~9) -> good code top (2-24) */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="9"
+                    x2="80"
+                    y2="3"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="9"
+                    x2="80"
+                    y2="24"
+                  />
+                  {/* bad plan (center ~31) -> bad code (31-66) */}
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="31"
+                    x2="80"
+                    y2="31"
+                  />
+                  <line
+                    className="connection-line bad-line visible"
+                    x1="0"
+                    y1="31"
+                    x2="80"
+                    y2="66"
+                  />
+                  {/* good plan bottom (center ~52) -> good code bottom (70-90) */}
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="52"
+                    x2="80"
+                    y2="70"
+                  />
+                  <line
+                    className="connection-line good-line visible"
+                    x1="0"
+                    y1="52"
+                    x2="80"
+                    y2="90"
+                  />
+                </>
+              )}
+            </svg>
+          </div>
+
+          {/* Implement Column */}
+          <div className="cascade-column">
+            {/* Step 3: good code (100% height) - only shown at step 3 */}
+            {step === 3 && (
+              <div className="cascade-item good size-100 visible">
+                <span>good code</span>
+              </div>
+            )}
+
+            {/* Step 4: Split into good/bad/good (small bad) */}
+            {step === 4 && (
+              <>
+                <div className="cascade-item good size-45 visible">
+                  <span>good code</span>
+                </div>
+                <div className="cascade-item bad size-5 visible">
+                  <span>bad code</span>
+                </div>
+                <div className="cascade-item good size-45 visible">
+                  <span>good code</span>
+                </div>
+              </>
+            )}
+
+            {/* Step 5: Split with bigger bad code */}
+            {step === 5 && (
+              <>
+                <div className="cascade-item good size-25 visible">
+                  <span>good code</span>
+                </div>
+                <div className="cascade-item bad size-20 visible">
+                  <span>bad code</span>
+                </div>
+                <div className="cascade-item good size-25 visible">
+                  <span>good code</span>
+                </div>
+              </>
+            )}
+
+            {/* Step 6: Split with HUGE bad code (cascade from bad research) */}
+            {step >= 6 && (
+              <>
+                <div className="cascade-item good size-26 visible">
+                  <span>good code</span>
+                </div>
+                <div className="cascade-item bad size-39 visible">
+                  <span>bad code</span>
+                </div>
+                <div className="cascade-item good size-26 visible">
+                  <span>good code</span>
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
@@ -183,4 +444,3 @@ export function ErrorCascadeSlide() {
     </div>
   );
 }
-

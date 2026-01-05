@@ -10,23 +10,24 @@
   min-height: 0;
 }
 
-/* Cascade Container */
-.cascade-container {
+/* Cascade Diagram */
+.cascade-diagram {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 900px;
+  max-width: 1000px;
   gap: 24px;
 }
 
 /* Column Headers */
 .cascade-headers {
   display: flex;
-  justify-content: space-around;
-  padding: 0 20px;
+  align-items: center;
 }
 
 .cascade-header {
+  flex: 1;
+  text-align: center;
   opacity: 0;
   transform: translateY(-20px);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -37,19 +38,24 @@
   transform: translateY(0);
 }
 
+.header-spacer {
+  width: 80px;
+  flex-shrink: 0;
+}
+
 .header-text {
   font-size: 1.1rem;
   font-weight: 600;
-  color: var(--text-secondary);
+  color: var(--text-primary);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
 
-/* Cascade Columns Layout */
-.cascade-columns {
+/* Main Content Area */
+.cascade-content {
   display: flex;
   align-items: stretch;
-  min-height: 400px;
+  height: 640px;
 }
 
 /* Individual Column */
@@ -57,71 +63,68 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 12px;
   padding: 16px;
   background: var(--surface-base);
   border: 1px solid var(--border-subtle);
   border-radius: 12px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.cascade-column.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.cascade-column.research-col {
-  transition-delay: 0s;
-}
-
-.cascade-column.plan-col {
-  transition-delay: 0.1s;
-}
-
-.cascade-column.code-col {
-  transition-delay: 0.2s;
-}
-
-/* Connection SVGs */
-.cascade-connections {
+/* Connector Area */
+.cascade-connector {
   width: 80px;
   flex-shrink: 0;
+  position: relative;
+}
+
+.connector-svg {
+  width: 300%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: -100%;
   overflow: visible;
 }
 
+/* Connection Lines */
 .connection-line {
-  fill: none;
-  stroke-width: 2;
-  stroke-dasharray: 200;
-  stroke-dashoffset: 200;
-  transition: stroke-dashoffset 0.6s ease;
+  stroke-width: 1;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  opacity: 0;
+  transition: stroke-dashoffset 0.6s ease, opacity 0.3s ease;
+  vector-effect: non-scaling-stroke;
 }
 
 .connection-line.visible {
   stroke-dashoffset: 0;
+  opacity: 1;
 }
 
 .connection-line.good-line {
-  stroke: #22c55e;
+  stroke: rgba(34, 197, 94, 0.8);
+  filter: drop-shadow(0 0 4px rgba(34, 197, 94, 0.6))
+    drop-shadow(0 0 8px rgba(34, 197, 94, 0.3));
 }
 
 .connection-line.bad-line {
-  stroke: #f59e0b;
+  stroke: rgba(239, 68, 68, 0.8);
+  filter: drop-shadow(0 0 4px rgba(239, 68, 68, 0.6))
+    drop-shadow(0 0 8px rgba(239, 68, 68, 0.3));
 }
 
-/* Cascade Items */
+/* Cascade Items - matching artifact-box style from slide 5 */
 .cascade-item {
-  padding: 16px 20px;
-  border-radius: 8px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.9rem;
-  font-weight: 500;
   opacity: 0;
-  transform: scale(0.8);
+  transform: scale(0.9);
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -130,18 +133,121 @@
   transform: scale(1);
 }
 
-.cascade-item.good {
-  background: #86efac;
-  border: 2px solid #22c55e;
-  color: #14532d;
-  box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
+.cascade-item span {
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 1.3;
+  text-align: center;
+  transition: color 0.3s ease;
 }
 
+/* Size variations - percentage of column height */
+.cascade-item.size-5 {
+  height: 5%;
+  flex-shrink: 0;
+  min-height: 32px;
+}
+.cascade-item.size-12 {
+  height: 12%;
+  flex-shrink: 0;
+}
+.cascade-item.size-15 {
+  height: 15%;
+  flex-shrink: 0;
+}
+.cascade-item.size-18 {
+  height: 18%;
+  flex-shrink: 0;
+}
+.cascade-item.size-19 {
+  height: 19%;
+  flex-shrink: 0;
+}
+.cascade-item.size-20 {
+  height: 20%;
+  flex-shrink: 0;
+}
+.cascade-item.size-23 {
+  height: 23%;
+  flex-shrink: 0;
+}
+.cascade-item.size-25 {
+  height: 25%;
+  flex-shrink: 0;
+}
+.cascade-item.size-26 {
+  height: 26%;
+  flex-shrink: 0;
+}
+.cascade-item.size-27 {
+  height: 27%;
+  flex-shrink: 0;
+}
+.cascade-item.size-30 {
+  height: 30%;
+  flex-shrink: 0;
+}
+.cascade-item.size-34 {
+  height: 34%;
+  flex-shrink: 0;
+}
+.cascade-item.size-35 {
+  height: 35%;
+  flex-shrink: 0;
+}
+.cascade-item.size-39 {
+  height: 39%;
+  flex-shrink: 0;
+}
+.cascade-item.size-40 {
+  height: 40%;
+  flex-shrink: 0;
+}
+.cascade-item.size-45 {
+  height: 45%;
+  flex-shrink: 0;
+}
+.cascade-item.size-55 {
+  height: 55%;
+  flex-shrink: 0;
+}
+.cascade-item.size-60 {
+  height: 60%;
+  flex-shrink: 0;
+}
+.cascade-item.size-80 {
+  height: 80%;
+  flex-shrink: 0;
+}
+.cascade-item.size-100 {
+  height: calc(100% - 32px);
+  flex-shrink: 0;
+}
+
+.cascade-item.size-10 {
+  height: 10%;
+  flex-shrink: 0;
+}
+
+/* Good items - green style like validated artifact */
+.cascade-item.good {
+  border-color: rgba(34, 197, 94, 0.6);
+  box-shadow: 0 0 25px rgba(34, 197, 94, 0.2);
+}
+
+.cascade-item.good span {
+  color: #4ade80;
+}
+
+/* Bad items - red style */
 .cascade-item.bad {
-  background: #fef08a;
-  border: 2px solid #facc15;
-  color: #713f12;
-  box-shadow: 0 4px 12px rgba(250, 204, 21, 0.3);
+  border-color: rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.2);
+}
+
+.cascade-item.bad span {
+  color: #f87171;
 }
 
 .cascade-item.bad.visible {
@@ -160,24 +266,6 @@
     opacity: 1;
     transform: scale(1);
   }
-}
-
-/* Size variations */
-.cascade-item.small {
-  padding: 12px 16px;
-  font-size: 0.85rem;
-}
-
-.cascade-item.large {
-  padding: 24px 20px;
-  min-height: 80px;
-}
-
-.cascade-item.extra-large {
-  padding: 32px 20px;
-  min-height: 120px;
-  font-size: 1rem;
-  font-weight: 600;
 }
 
 /* Takeaway Section */
@@ -301,19 +389,21 @@
 
 /* Responsive */
 @media (max-width: 900px) {
-  .cascade-columns {
+  .cascade-headers {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .header-spacer {
+    display: none;
+  }
+
+  .cascade-content {
     flex-direction: column;
     gap: 24px;
   }
-  
-  .cascade-connections {
+
+  .cascade-connector {
     display: none;
   }
-  
-  .cascade-column {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
 }
-

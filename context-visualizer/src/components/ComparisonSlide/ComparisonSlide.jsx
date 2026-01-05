@@ -80,7 +80,7 @@ export function ComparisonSlide() {
                 </li>
                 <li>
                   <span className="point-icon">-</span>
-                  <span>Chain-of-Thought, few-shot examples</span>
+                  <span>Reasoning instructions and example answers</span>
                 </li>
                 <li>
                   <span className="point-icon">-</span>
@@ -139,7 +139,7 @@ export function ComparisonSlide() {
                 </li>
                 <li>
                   <span className="point-icon">-</span>
-                  <span>Curating the right information</span>
+                  <span>Select only the relevant information</span>
                 </li>
                 <li>
                   <span className="point-icon">-</span>
